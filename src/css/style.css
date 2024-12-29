@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Importa los estilos de Slick */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 @layer base {
     body {
         @apply relative z-1 bg-gray-2 font-satoshi text-base font-normal text-dark-5 dark:bg-[#020D1A] dark:text-dark-6;
@@ -719,3 +723,30 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 16px;
     cursor: pointer;
   }
+
+  
+  .image-gallery {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .image-gallery .flex {
+    display: flex;
+    transition: transform 1s ease; /* Animación suave para el desplazamiento */
+  }
+  
+  .image-gallery .image-item {
+    width: 100%;
+    flex-shrink: 0; /* Evita que las imágenes se compriman */
+    height: 300px;
+  }
+  
+  .image-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que las imágenes cubran el área del contenedor */
+    border-radius: 10px; /* Opcional para redondear las esquinas */
+  }
+
+  

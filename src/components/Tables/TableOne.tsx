@@ -126,32 +126,34 @@ const TableOne = () => {
 
   return (
     <div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
-      <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
-        Ofertas De Empleo
-      </h4>
-      <div className="flex flex-col gap-4">
-        {ofertas.map((oferta) => (
-          <div key={oferta.id}>
-            <Image
-              src={oferta.fileUrl}
-              alt="Oferta de empleo"
-              width={639}
-              height={848}
-              objectFit="cover"
-              className="rounded-lg"
-            />
-            <button
-              onClick={() => handleApplyClick(oferta.id)}
-              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Aplicar
-            </button>
-          </div>
-        ))}
-      </div>
+    <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
+      Ofertas De Empleo
+    </h4>
   
-      {/* Modal */}
-      {isModalOpen && (
+    {/* Se habilita el desplazamiento solo en móvil y se establece la altura a 460px */}
+    <div className="flex flex-col gap-4 overflow-y-auto max-h-[460px] md:max-h-none">
+      {ofertas.map((oferta) => (
+        <div key={oferta.id}>
+          <Image
+            src={oferta.fileUrl}
+            alt="Oferta de empleo"
+            width={639}
+            height={848}
+            objectFit="cover"
+            className="rounded-lg"
+          />
+          <button
+            onClick={() => handleApplyClick(oferta.id)}
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Aplicar
+          </button>
+        </div>
+      ))}
+    </div>
+  
+     {/* Modal */}
+     {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
           style={{ position: "fixed", top: "120px" }}
@@ -319,7 +321,8 @@ const TableOne = () => {
           </div>
         </div>
       )}
-    </div>
+  </div>
+  
   );
   
 };

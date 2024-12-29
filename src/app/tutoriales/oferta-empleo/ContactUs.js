@@ -10,7 +10,7 @@ const BuscarEmpleo = () => {
       <div className="w-full max-w-4xl aspect-video">
         <iframe
           className="w-full h-full rounded-lg shadow-lg"
-          src="https://firebasestorage.googleapis.com/v0/b/rr-hh-project.firebasestorage.app/o/videostutoriales%2Fofc-Empleador.mp4?alt=media&token=c320fbd8-9ace-490e-a5a3-39cafc80ed7d"
+          src="https://firebasestorage.googleapis.com/v0/b/rr-hh-project.firebasestorage.app/o/videostutoriales%2Fofc-2.mp4?alt=media&token=2b81718f-48ee-41e0-8121-0fa299f1bee9"
           title="Cómo buscar empleo"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
