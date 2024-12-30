@@ -90,38 +90,87 @@ const Header = (props: {
       </div>
     </header>
     <div className="relative">
-  <h3
-    onClick={() => setIsAccordionOpen(!isAccordionOpen)}
-    className="font-medium cursor-pointer text-dark dark:text-white mt-4"
-    style={{ position: 'relative', left: '30px' }}
+ <div
+  onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+  style={{
+    display: 'inline-block', // Se adapta al contenido
+    position: 'relative',
+    left: '30px',
+    backgroundColor: '#FFD700', // Fondo llamativo (dorado)
+    padding: '10px 15px', // Espaciado interno
+    borderRadius: '8px', // Bordes redondeados
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra para resaltar
+    cursor: 'pointer', // Indica que es interactivo
+  }}
+  className="mt-4"
+>
+  <label
+    style={{
+      fontWeight: 'bold',
+      fontSize: '18px',
+      color: '#333', // Color de texto oscuro para contraste
+    }}
+    className="block"
   >
-    Atencion: ¿Cómo usar la página?
-  </h3>
+    Atención: ¿Cómo usar la página?
+  </label>
+  <span
+    style={{
+      color: '#FF4500', // Color llamativo (naranja fuerte)
+      fontWeight: 'bold',
+      textDecoration: 'underline',
+      fontSize: '16px',
+    }}
+  >
+    Clickea aquí para saber cómo
+  </span>
+</div>
 
-  {isAccordionOpen && (
-    <div
-      className="absolute left-0 mt-2 w-64 rounded-md border border-stroke bg-white p-4 shadow-lg dark:border-stroke-dark dark:bg-gray-dark"
-      style={{ zIndex: 1000 }} // Asegura que el acordeón esté por encima de otros elementos
-    >
-      <ul className="space-y-2 text-dark dark:text-white">
-        <li>
-          <Link href="/tutoriales/buscar-empleo" className="hover:underline">
-            - Cómo buscar empleo
-          </Link>
-        </li>
-        <li>
-          <Link href="/tutoriales/oferta-empleo" className="hover:underline">
-            - Cómo publicar tu oferta de empleo
-          </Link>
-        </li>
-        <li>
-          <Link href="/tutoriales/subir-publicidad" className="hover:underline">
-            - Cómo subir tu publicidad
-          </Link>
-        </li>
-      </ul>
-    </div>
-  )}
+
+{isAccordionOpen && (
+  <div
+    className="absolute mt-2 w-auto rounded-md p-4 shadow-lg"
+    style={{
+      left: '30px', // Distancia consistente desde la izquierda
+      zIndex: 1000, // Asegura que esté por encima de otros elementos
+      backgroundColor: '#FFFACD', // Fondo llamativo (amarillo claro)
+      border: '1px solid #FFD700', // Borde dorado para consistencia
+      color: '#333', // Texto oscuro para contraste
+      maxWidth: '300px', // Limita el ancho para evitar desbordes
+    }}
+  >
+    <ul className="space-y-2">
+      <li>
+        <Link
+          href="/tutoriales/buscar-empleo"
+          className="hover:underline font-medium text-dark"
+          style={{ color: '#FF4500' }} // Naranja llamativo para los links
+        >
+          - Cómo buscar empleo
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/tutoriales/oferta-empleo"
+          className="hover:underline font-medium text-dark"
+          style={{ color: '#FF4500' }} // Naranja llamativo para los links
+        >
+          - Cómo publicar tu oferta de empleo
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/tutoriales/subir-publicidad"
+          className="hover:underline font-medium text-dark"
+          style={{ color: '#FF4500' }} // Naranja llamativo para los links
+        >
+          - Cómo subir tu publicidad
+        </Link>
+      </li>
+    </ul>
+  </div>
+)}
+
 </div>
     </div>
   );
