@@ -5,7 +5,7 @@ import CalendarBox from "@/components/CalenderBox";
 
 export const metadata: Metadata = {
   title:
-    "OFP Consulting",
+    "empleo oscar fung consulting",
   description: "Esta es una aplicacion de Contratacion y aplicacion para puestos",
 };
 

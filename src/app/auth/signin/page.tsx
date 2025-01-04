@@ -8,7 +8,7 @@ import Signin from "@/components/Auth/Signin";
 
 export const metadata: Metadata = {
   title:
-    "OFP Consulting",
+    "empleo oscar fung consulting",
   description: "Esta es una aplicacion de Contratacion y aplicacion para puestos",
 };
 

@@ -9,8 +9,6 @@ import { AuthProvider } from '../context/AuthContext';
 import '../styles/globals.css';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{

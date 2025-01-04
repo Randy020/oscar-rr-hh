@@ -5,7 +5,7 @@ import ButtonDefault from "@/components/Buttons/ButtonDefault";
 
 export const metadata: Metadata = {
   title:
-    "OFP Consulting",
+    "empleo oscar fung consulting",
   description: "Esta es una aplicacion de Contratacion y aplicacion para puestos",
 };
 

@@ -6,7 +6,7 @@ import SettingBoxes from "@/components/SettingBoxes";
 
 export const metadata: Metadata = {
   title:
-    "OFP Consulting",
+    "empleo oscar fung consulting",
   description: "Esta es una aplicacion de Contratacion y aplicacion para puestos",
 };
 
