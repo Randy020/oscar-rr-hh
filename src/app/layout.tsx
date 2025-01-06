@@ -34,6 +34,9 @@ export default function RootLayout({
   return (
     <html lang="es">  {/* Establecer el idioma global */}
       <head>
+         {/* Link al favicon PNG */}
+         <link rel="icon" href="/images/lg-v-O-removebg-preview.png" type="image/x-icon" sizes="16x16"></link>
+      
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           rel="stylesheet"
