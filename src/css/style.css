@@ -674,13 +674,13 @@ input[type="search"]::-webkit-search-cancel-button {
     background: none;
     border: 2px solid #fff;
     font-size: 15px;
-    color: #131313;
+    color: #ece6e6;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
     border-radius: 12px;
-    background-color: #ecd448;
+    background-color: #000000;
     font-weight: bolder;
     box-shadow: 0 2px 0 2px #000;
    }

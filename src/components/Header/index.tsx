@@ -96,7 +96,7 @@ const Header = (props: {
     display: 'inline-block', // Se adapta al contenido
     position: 'relative',
     left: '30px',
-    backgroundColor: '#FFD700', // Fondo llamativo (dorado)
+    backgroundColor: 'rgb(37 78 170)', // Fondo llamativo (dorado)
     padding: '10px 15px', // Espaciado interno
     borderRadius: '8px', // Bordes redondeados
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra para resaltar
@@ -108,7 +108,7 @@ const Header = (props: {
     style={{
       fontWeight: 'bold',
       fontSize: '18px',
-      color: '#333', // Color de texto oscuro para contraste
+      color: 'rgb(255 255 255)', // Color de texto oscuro para contraste
     }}
     className="block"
   >
@@ -116,7 +116,7 @@ const Header = (props: {
   </label>
   <span
     style={{
-      color: '#FF4500', // Color llamativo (naranja fuerte)
+      color: 'rgb(255 255 255)', // Color llamativo (naranja fuerte)
       fontWeight: 'bold',
       textDecoration: 'underline',
       fontSize: '16px',

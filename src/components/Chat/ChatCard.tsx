@@ -70,7 +70,7 @@ const ChatCard = () => {
   {/* Botón con el nuevo diseño */}
   <button
     type="button"
-    className="btn flex justify-center items-center ml-[30px]"
+    className="btn flex justify-center items-center ml-[10px]"
     onClick={toggleModal}
   >
     <strong className="strongP">COLOCA AQUI TU PUBLICIDAD</strong>
