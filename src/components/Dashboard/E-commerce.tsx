@@ -50,9 +50,12 @@ const ECommerce: React.FC = () => {
 </div>
 
 {/* ChatCard oculto en versión PC, posicionado fuera del flujo de layout */}
-<div className="hidden md:block absolute top-60 right-10 z-10">
-  <ChatCard />
+<div className="relative">
+  <div className="hidden md:block absolute z-10">
+    <ChatCard />
+  </div>
 </div>
+
 
       </div>
     </>
