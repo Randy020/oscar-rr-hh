@@ -55,7 +55,7 @@ export const SubirDatosNC1 = () => {
         downloadURL = await getDownloadURL(uploadTask.ref);
       }
 
-      const docRef = doc(db, "texto", "apartado1");
+      const docRef = doc(db, "textoNC", "apartado1");
       await setDoc(docRef, {
         title: formData.title,
         contenido: formData.contenido,
@@ -201,7 +201,7 @@ export const SubirDatosNC2 = () => {
         downloadURL = await getDownloadURL(uploadTask.ref);
       }
 
-      const docRef = doc(db, "texto", "apartado2");
+      const docRef = doc(db, "textoNC", "apartado2");
       await setDoc(docRef, {
         title: formData.title,
         contenido: formData.contenido,
@@ -346,7 +346,7 @@ export const SubirDatosNC3 = () => {
         downloadURL = await getDownloadURL(uploadTask.ref);
       }
 
-      const docRef = doc(db, "texto", "apartado3");
+      const docRef = doc(db, "textoNC", "apartado3");
       await setDoc(docRef, {
         title: formData.title,
         contenido: formData.contenido,
