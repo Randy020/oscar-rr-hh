@@ -4,6 +4,7 @@ import { db, storage } from "@/lib/firebaseConfig"; // Importa también el stora
 import { collection, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import InputGroup from "@/components/FormElements/InputGroup";
+import { Divider, Typography, Box } from '@mui/material';
 
 interface Oferta {
   id: string;
@@ -142,12 +143,14 @@ const TableOne = () => {
             objectFit="cover"
             className="rounded-lg"
           />
-          <button
-            onClick={() => handleApplyClick(oferta.id)}
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Aplicar
-          </button>
+          <Divider 
+        sx={{
+          margin: '20px 0', 
+          borderColor: 'gray',      // Color de la línea
+          borderWidth: 2,          // Grosor de la línea
+          borderStyle: 'dashed',   // Estilo de la línea (puede ser 'solid', 'dotted', 'dashed', etc.)
+        }} 
+      />
         </div>
       ))}
     </div>

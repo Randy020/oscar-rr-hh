@@ -158,18 +158,11 @@ const DropdownUser = () => {
               ) : (
                 <>
                   <button
-                    onClick={signInWithGoogle} // Iniciar sesión como postulante
-                    className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
-                  >
-                    <FaUserAlt className="text-xl" /> {/* Icono de postulante */}
-                    Iniciar sesión como postulante
-                  </button>
-                  <button
                     onClick={handleSignInAsEmpleador} // Iniciar sesión como empleador
                     className="flex w-full items-center gap-2.5 rounded-[7px] p-2.5 text-sm font-medium text-dark-4 duration-300 ease-in-out hover:bg-gray-2 hover:text-dark dark:text-dark-6 dark:hover:bg-dark-3 dark:hover:text-white lg:text-base"
                   >
                     <FaBriefcase className="text-xl" /> {/* Icono de empleador */}
-                    Iniciar sesión como empleador
+                    Iniciar sesión o crear cuenta
                   </button>
                 </>
               )}
@@ -182,19 +175,11 @@ const DropdownUser = () => {
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg w-96">
-            <h2 className="text-xl font-bold">Formulario de Registro de Empleador</h2>
+            <h2 className="text-xl font-bold">Formulario de Registro</h2>
             <form onSubmit={handleSubmitForm}>
               <div className="grid gap-4 mt-4">
                 {/* Dirección Completa */}
-                <input
-                  type="text"
-                  name="direccion"
-                  placeholder="Dirección del negocio"
-                  value={formData.direccion}
-                  onChange={handleInputChange}
-                  required
-                  className="p-2 border border-gray-300 rounded-md w-full"
-                />
+                
                 <div className="flex gap-4">
                   <input
                     type="text"
@@ -236,42 +221,6 @@ const DropdownUser = () => {
                 />
                 </div>
 
-                <div className="flex gap-4 mt-2">
-                  <input
-                    type="text"
-                    name="paraje"
-                    placeholder="Paraje"
-                    value={formData.paraje}
-                    onChange={handleInputChange}
-                    required
-                    className="p-2 border border-gray-300 rounded-md w-full"
-                  />
-                  <input
-                    type="text"
-                    name="municipio"
-                    placeholder="Municipio"
-                    value={formData.municipio}
-                    onChange={handleInputChange}
-                    className="p-2 border border-gray-300 rounded-md w-full"
-                    required
-                  />
-                </div>
-                
-
-                
-             
-                {/* cedula o pasaporte */}
-                <label className=" font-bold"> Importante para aceder como Empleador</label>
-                <input
-                  type="tel"
-                  name="cedulaPasaporte"
-                  placeholder="cedula o pasaporte"
-                  value={formData.cedulaPasaporte}
-                  onChange={handleInputChange}
-                  required
-                  className="p-2 border border-gray-300 rounded-md w-full"
-                />
-
               <div className="flex gap-4 mt-2">
                 {/* Teléfonos */}
                 <input
@@ -304,15 +253,6 @@ const DropdownUser = () => {
                   onChange={handleInputChange}
                   required
                   className="p-2 border border-gray-300 rounded-md w-full"
-                />
-                <input
-                  type="text"
-                  name="actividad"
-                  placeholder="Actividad del negocio"
-                  value={formData.actividad}
-                  onChange={handleInputChange}
-                  required
-                  className="p-2 border border-gray-300 rounded-md w-full mt-2"
                 />
 
                 <button

@@ -1,62 +1,104 @@
-'use client'; // Agrega esta directiva al inicio del archivo
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
-import Image from 'next/image'; // Asegúrate de tener instalado Next.js Image
-import { db } from "@/lib/firebaseConfig"; // Importa la instancia de Firestore ya configurada
+import React, { useEffect, useState } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import Image from "next/image";
+import { db } from "@/lib/firebaseConfig";
+import { motion } from "framer-motion";
 
 const RecursosHumanos = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "texto")); // Obtener todos los documentos de la colección "texto"
-        const documents = querySnapshot.docs.map(doc => ({
+        const querySnapshot = await getDocs(collection(db, "texto"));
+        const documents = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setData(documents); // Guardar los datos en el estado
+        setData(documents);
       } catch (error) {
         console.error("Error fetching documents:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
+  }, []);
 
-  if (data.length === 0) {
-    return <div>Cargando...</div>; // Mensaje mientras se cargan los datos
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-8">Nuestros Servicios de Recursos Humanos</h2>
-      {data.map((item, index) => (
-        <div key={index} className="mb-12">
-          <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
-          <div className="flex flex-col md:flex-row items-center">
-            {/* Mostrar imagen si existe */}
+    <div className="max-w-7xl mx-auto px-6 py-12">
+      <motion.h2 
+        className="text-4xl font-bold text-center mb-12 text-gray-800"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Nuestros Servicios de Recursos Humanos
+      </motion.h2>
+
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {data.map((item) => (
+          <motion.div 
+            key={item.id} 
+            className="bg-white rounded-lg shadow-lg p-6 transition duration-300 transform hover:scale-105"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <h3 className="text-2xl font-semibold text-blue-600 mb-4">{item.title}</h3>
+            
+            {/* Mostrar imagen principal si existe */}
             {item.image && (
-              <Image
-                src={item.image}
-                width={600} // Ajusta según tu diseño
-                height={400} // Ajusta según tu diseño
-                className="rounded-lg shadow-lg mb-4 md:mb-0 md:mr-6"
-                alt={item.title}
-              />
+              <div className="relative w-full h-40 mb-4">
+                <Image 
+                  src={item.image} 
+                  layout="fill" 
+                  objectFit="cover" 
+                  className="rounded-lg" 
+                  alt={item.title} 
+                />
+              </div>
             )}
-            {/* Mostrar el contenido de cada documento */}
-            <ul className="list-disc pl-6 text-lg">
-              {item.contenido && item.contenido.split("\n").map((text, i) => (
-                <li key={i} className="mb-2">
-                  {text}
-                </li>
-              ))}
+            
+            <ul className="list-disc pl-5 text-gray-700">
+              {item.contenido && item.contenido.split("\n").map((text, i) => {
+                // Si el texto comienza con "data:image", se trata de una imagen en base64
+                if (text.startsWith("data:image")) {
+                  return (
+                    <div key={i} className="my-2">
+                      <Image 
+                        src={text} 
+                        alt="Contenido embebido" 
+                        width={600} 
+                        height={400} 
+                        className="rounded-lg"
+                      />
+                    </div>
+                  );
+                }
+                // En caso de ser texto, se fuerza el corte de palabras largas
+                return (
+                  <li key={i} className="mb-2 break-all">
+                    {text}
+                  </li>
+                );
+              })}
             </ul>
-          </div>
-        </div>
-      ))}
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };

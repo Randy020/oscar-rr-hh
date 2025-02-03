@@ -749,4 +749,87 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius: 10px; /* Opcional para redondear las esquinas */
   }
 
+  /* From Uiverse.io by UtariD86 */
+
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .action-button {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: #e3c011;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    padding-top: 2px; /* Agregado el padding-top de 2px */
+  }
+  
+  .action-button,
+  .action-button span {
+    transition: 200ms;
+  }
+  
+  .action-button .action-text {
+    transform: translateX(35px);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+  }
+  
+  .action-button .action-icon {
+    position: absolute;
+    border-left: 1px solid #033d03;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .action-button svg {
+    width: 15px;
+    fill: #000000;
+  }
+  
+  .action-button:hover {
+    background: #d4ff00;
+  }
+  
+  .action-button:active {
+    background: #b5e464;
+  }
+  
+  .action-button:hover .action-text {
+    color: transparent;
+  }
+  
+  .action-button:hover .action-icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+  }
+  
+  .action-button:focus {
+    outline: none;
+  }
+  
+  .action-button:active .action-icon svg {
+    transform: scale(0.8);
+  }
+  
+  .action-span {
+    color: rgb(255, 255, 255);
+    margin: 150px;
+    font-size: 30px;
+  }
   

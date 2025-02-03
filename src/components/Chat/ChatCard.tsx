@@ -115,7 +115,7 @@ const ChatCard = () => {
           {/* Opción 1: Pago mensual */}
           <div className="p-4 rounded-md border border-gray-300 shadow-sm hover:shadow-lg transition duration-200 w-1/2">
             <p className="text-lg font-semibold">Opción 1: Pago Mensual</p>
-            <p className="text-gray-600">Paga $33 USD cada mes para mantener tu publicidad activa.</p>
+            <p className="text-gray-600">Paga $3 USD por mes</p>
             <PayPalButtons
               createOrder={(data, actions) => {
                 return actions.order?.create({
@@ -124,7 +124,7 @@ const ChatCard = () => {
                     {
                       amount: {
                         currency_code: "USD",
-                        value: "33.00",  // Monto mensual
+                        value: "3.00",  // Monto mensual
                       },
                     },
                   ],
@@ -156,7 +156,7 @@ const ChatCard = () => {
           {/* Opción 2: Pago anual */}
           <div className="p-4 rounded-md border border-gray-300 shadow-sm hover:shadow-lg transition duration-200 w-1/2">
             <p className="text-lg font-semibold">Opción 2: Pago Anual</p>
-            <p className="text-gray-600">Paga 200 USD ahorra un 95% al optar por el año</p>
+            <p className="text-gray-600">Paga 30 USD por año</p>
 
             <PayPalButtons
               createOrder={(data, actions) => {
@@ -166,7 +166,7 @@ const ChatCard = () => {
                     {
                       amount: {
                         currency_code: "USD",
-                        value: "200.00",  // Monto anual
+                        value: "30.00",  // Monto anual
                       },
                     },
                   ],

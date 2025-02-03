@@ -52,8 +52,7 @@ export const signInWithGoogleEmpleador = async () => {
 
     if (!querySnapshot.empty) {
       console.log("El usuario es un empleador:", querySnapshot.docs[0].data());
-      alert("Preste atencion su numero de cedula sera necesario para la recuperacion de su cuenta");
-      prompt('Ingrese numero de cedula:');
+      alert("Has iniciado sesion");
       return "empleador";
     } else {
       console.log("El usuario no es un empleador, UID no encontrado:", user.uid);

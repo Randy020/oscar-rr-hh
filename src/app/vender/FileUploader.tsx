@@ -7,18 +7,25 @@ import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
+const categories = ["INMUEBLES", "VEHICULOS", "Animales", "Electrodomesticos", "Celulares", "Otros"];
+
 const FileUploader = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
-  const [showModal, setShowModal] = useState(false); // Modal para indicar que el archivo se subió correctamente
-  const [showAuthModal, setShowAuthModal] = useState(false); // Modal para indicar que el usuario debe logearse
+  const [showModal, setShowModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
 
   const handleFiles = useCallback((newFiles: File[]) => {
+    if (!selectedCategory) {
+      alert("Debes seleccionar una categoría antes de subir archivos.");
+      return;
+    }
     const validFiles = newFiles.filter((file) => typeValidation(file.type));
     setFiles((prev) => [...prev, ...validFiles]);
     validFiles.forEach((file) => uploadFile(file));
-  }, []);
+  }, [selectedCategory]);
 
   const typeValidation = (type: string) => {
     const splitType = type.split("/")[0];
@@ -26,12 +33,15 @@ const FileUploader = () => {
   };
 
   const uploadFile = (file: File) => {
+    if (!selectedCategory) {
+      alert("Debes seleccionar una categoría antes de subir archivos.");
+      return;
+    }
     const fileId = uuidv4();
     const auth = getAuth();
     const user = auth.currentUser;
 
     if (!user) {
-      // Si el usuario no está logueado, se muestra el modal de autenticación
       setShowAuthModal(true);
       return;
     }
@@ -42,7 +52,7 @@ const FileUploader = () => {
     uploadBytes(storageRef, file)
       .then((snapshot) => {
         getDownloadURL(snapshot.ref).then((downloadURL) => {
-          addDoc(collection(db, "ofertas"), {
+          addDoc(collection(db, selectedCategory), {
             fileName: file.name,
             fileSize: file.size,
             fileType: file.type,
@@ -52,7 +62,7 @@ const FileUploader = () => {
           })
             .then(() => {
               setUploadedFiles((prev) => [...prev, file.name]);
-              setShowModal(true); // Mostrar modal después de subir correctamente el archivo
+              setShowModal(true);
             })
             .catch((error) => {
               console.error("Error al guardar el archivo en Firestore:", error);
@@ -66,9 +76,26 @@ const FileUploader = () => {
 
   return (
     <div className="rounded-[10px] bg-white px-7.5 pb-6 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
-      <h4 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
-        Publica Tu Oferta de Empleo
-      </h4>
+    
+
+    <label className="block mb-2 text-lg font-semibold text-gray-800 dark:text-gray-200">
+  Selecciona una categoría:
+</label>
+<select 
+  className="w-full p-3 border-2 border-yellow-500 rounded-lg 
+             bg-yellow-100 text-gray-900 dark:bg-yellow-700 dark:text-white 
+             hover:bg-yellow-200 dark:hover:bg-yellow-600 
+             focus:ring-4 focus:ring-yellow-400 dark:focus:ring-yellow-500 
+             transition-all"
+  value={selectedCategory} 
+  onChange={(e) => setSelectedCategory(e.target.value)}
+>
+  <option value="" disabled>Selecciona una categoría</option>
+  {categories.map((category) => (
+    <option key={category} value={category}>{category}</option>
+  ))}
+</select>
+
 
       <div
         onDragOver={(e) => e.preventDefault()}
@@ -78,17 +105,10 @@ const FileUploader = () => {
           handleFiles(droppedFiles);
         }}
         onClick={() => document.getElementById("fileInput")?.click()}
-        className="flex flex-col items-center justify-center h-[30vh] border-4 border-dashed border-blue-500 rounded-lg dark:border-blue-400 cursor-pointer"
+        className="flex flex-col items-center justify-center h-[30vh] border-4 border-dashed border-blue-500 rounded-lg dark:border-blue-400 cursor-pointer mt-4"
       >
         <p className="text-lg font-medium text-dark dark:text-white">
-          Arrastra y suelta tu oferta de empleo aquí
-        </p>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-          o{" "}
-          <span className="text-blue-500 dark:text-blue-400 font-semibold">
-            contáctanos
-          </span>{" "}
-          para la creación de la misma.
+          Arrastra y suelta tu archivo aquí
         </p>
       </div>
 
@@ -100,7 +120,6 @@ const FileUploader = () => {
         onChange={(e) => handleFiles([...e.target.files!])}
       />
 
-      {/* Lista de archivos subidos */}
       {uploadedFiles.length > 0 && (
         <div className="mt-6">
           <h3 className="text-lg font-semibold dark:text-white">Archivos Subidos:</h3>
@@ -111,46 +130,6 @@ const FileUploader = () => {
               </li>
             ))}
           </ul>
-        </div>
-      )}
-
-      {/* Modal para archivo subido exitosamente */}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center dark:bg-gray-800">
-            <h2 className="text-2xl font-bold text-dark dark:text-white">
-              ¡Archivo Subido!
-            </h2>
-            <p className="mt-4 text-gray-700 dark:text-gray-300">
-              Tu oferta de empleo se ha subido exitosamente.
-            </p>
-            <button
-              onClick={() => router.push("/")}
-              className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-              Aceptar
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Modal para indicar que el usuario debe logearse */}
-      {showAuthModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center dark:bg-gray-800">
-            <h2 className="text-2xl font-bold text-dark dark:text-white">
-              Necesitas inicia sesión
-            </h2>
-            <p className="mt-4 text-gray-700 dark:text-gray-300">
-              Para continuar, por favor inicia sesión.
-            </p>
-            <button
-              onClick={() => router.push("/")}
-              className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-              Aceptar
-            </button>
-          </div>
         </div>
       )}
     </div>
