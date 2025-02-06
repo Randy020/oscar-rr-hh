@@ -64,9 +64,11 @@ const Header = (props: {
 
         <div className="hidden xl:block">
           <div>
-            <h1 className="mb-0.5 text-heading-5 font-bold text-dark dark:text-white">
-            INICIO
-            </h1>
+          <Link href="/">
+  <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+    INICIO
+  </button>
+</Link>
             <p className="font-medium">Solución del panel de administración de OFC</p>
           </div>
         </div>
