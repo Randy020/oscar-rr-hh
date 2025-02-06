@@ -2,14 +2,15 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
-import { SubirDatosServicios1, SubirDatosServicios2, SubirDatosServicios3 } from "./SubirDatosServicios";
-import { SubirDatosSN1, SubirDatosSN2, SubirDatosSN3 } from "./SubirDatosSN";
-import { SubirDatosNC1, SubirDatosNC2, SubirDatosNC3 } from "./SubirDatosNC";
-import { SubirDatosCE1, SubirDatosCE2, SubirDatosCE3 } from "./SubirDatosCE";
+import { SubirEncabezado, SubirDatosServicios1, SubirDatosServicios2, SubirDatosServicios3 } from "./SubirDatosServicios";
+import { SubirEncabezadoSN, SubirDatosSN1, SubirDatosSN2, SubirDatosSN3 } from "./SubirDatosSN";
+import { SubirEncabezadoNC, SubirDatosNC1, SubirDatosNC2, SubirDatosNC3 } from "./SubirDatosNC";
+import { SubirEncabezadoCE, SubirDatosCE1, SubirDatosCE2, SubirDatosCE3 } from "./SubirDatosCE";
+import { SubirEncabezadoBG,SubirDatosBG1, SubirDatosBG2, SubirDatosBG3, SubirDatosBG4 } from "./SubirDatosBG"; 
 import CheckPaymentButton from "@/components/Chat/Admin";
 import {ShopNowButtonP} from "@/components/Chat/publicidadC"
 
-import { SubirDatosBG1, SubirDatosBG2, SubirDatosBG3, SubirDatosBG4 } from "./SubirDatosBG"; 
+
 
 //Admin
 import React, { useEffect, useState } from 'react';
@@ -71,32 +72,47 @@ const Profile = () => {
 <h2 className="text-xl font-bold mb-6 text-center">Cambiar publicidad Comun</h2>
 <CheckPaymentButton/>
           
-      <h1 className="text-xl font-bold mb-6 text-center">Actualizar datos, Servicios Que ofrecemos</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <SubirDatosServicios1 />
-        <SubirDatosServicios2 />
-        <SubirDatosServicios3 />
-      </div>
+<h1 className="text-xl font-bold mb-6 text-center">
+  Actualizar datos, Servicios Que ofrecemos
+</h1>
+
+{/* El encabezado se muestra fuera (y por encima) del grid */}
+<SubirEncabezado />
+
+{/* Grid para los componentes restantes */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+  <SubirDatosServicios1 />
+  <SubirDatosServicios2 />
+  <SubirDatosServicios3 />
+</div>
         <h1 className="text-xl font-bold mb-6 text-center">Actualizar datos, Sobre Nosotros</h1>
+        <SubirEncabezadoSN/>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
         <SubirDatosSN1 />
         <SubirDatosSN2 />
         <SubirDatosSN3 />
       </div>
         <h1 className="text-xl font-bold mb-6 text-center">Actualizar datos, Lo que dicen nuestro clientes</h1>
+        <SubirEncabezadoNC/>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+ 
         <SubirDatosNC1 />
         <SubirDatosNC2 />
         <SubirDatosNC3 />
       </div>
         <h1 className="text-xl font-bold mb-6 text-center">Actualizar datos, Casos de exitos</h1>
+        <SubirEncabezadoCE/>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
         <SubirDatosCE1 />
         <SubirDatosCE2 />
         <SubirDatosCE3 />
       </div>
         <h1 className="text-xl font-bold mb-6 text-center">Actualizar datos, Blog</h1>
+        <SubirEncabezadoBG/>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
         <SubirDatosBG1 />
         <SubirDatosBG2 />
         <SubirDatosBG3 />

@@ -1,39 +1,51 @@
-'use client'; // Agrega esta directiva al inicio del archivo
+'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
-import { db } from "@/lib/firebaseConfig"; // Importa la instancia de Firestore ya configurada
-import Image from 'next/image'; // Importa el componente Image de Next.js para optimizar las imágenes
+import { getDocs, getDoc, doc, collection } from 'firebase/firestore';
+import { db } from "@/lib/firebaseConfig";
+import Image from 'next/image';
 
 const SuccessCases = () => {
   const [data, setData] = useState([]);
+  const [header, setHeader] = useState("Casos de Éxito"); // Estado para el encabezado
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "textoCE")); // Obtener todos los documentos de la colección "texto"
-        const documents = querySnapshot.docs.map(doc => ({
-          id: doc.id, // ID del documento
-          ...doc.data() // Datos del documento
-        }));
-        setData(documents); // Guardar los datos en el estado
+        // Obtener el encabezado desde Firestore (apartado0)
+        const headerDocRef = doc(db, "textoCE", "apartado0");
+        const headerSnap = await getDoc(headerDocRef);
+        if (headerSnap.exists()) {
+          setHeader(headerSnap.data().encabezado || "Casos de Éxito");
+        }
+        
+        // Obtener el resto de documentos, excluyendo apartado0
+        const querySnapshot = await getDocs(collection(db, "textoCE"));
+        const documents = querySnapshot.docs
+          .filter((doc) => doc.id !== "apartado0")
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+
+        setData(documents);
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
     };
 
     fetchData();
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
+  }, []);
 
   if (data.length === 0) {
-    return <div>Cargando...</div>; // Mensaje mientras se cargan los datos
+    return <div>Cargando...</div>;
   }
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-extrabold text-gray-800 text-center">
-          Casos de Éxito
+          {header} {/* Se muestra el encabezado dinámico */}
         </h2>
         <p className="mt-4 text-lg text-gray-600 text-center">
           Resultados que hablan por sí mismos
@@ -48,7 +60,7 @@ const SuccessCases = () => {
               <div className="relative w-full h-56 overflow-hidden rounded-xl">
                 {item.image && (
                   <Image
-                    src={item.image} // Asegúrate de que 'image' esté bien en los datos de Firestore
+                    src={item.image}
                     alt={item.title}
                     layout="fill"
                     className="object-cover"
@@ -56,10 +68,10 @@ const SuccessCases = () => {
                 )}
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-gray-800 text-center">
-                {item.title} {/* Título del documento */}
+                {item.title}
               </h3>
               <p className="mt-4 text-gray-600 text-center">
-                {item.contenido} {/* Contenido del documento */}
+                {item.contenido}
               </p>
             </div>
           ))}

@@ -1,23 +1,44 @@
 'use client'; // Agrega esta directiva al inicio del archivo
 
 import React, { useEffect, useState } from 'react';
-import { Typography, Box, Button, Card, CardContent, CardMedia, Grid, useTheme, ThemeProvider, createTheme } from '@mui/material';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import {
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  useTheme,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
+import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from "@/lib/firebaseConfig"; // Importa la instancia de Firestore ya configurada
 
 const RecursosHumanos = () => {
   const [mode, setMode] = useState('light'); // Estado para cambiar entre modo claro y oscuro
   const [data, setData] = useState([]);
+  const [header, setHeader] = useState("Recursos Humanos al Día"); // Estado para el encabezado dinámico
   const theme = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Obtener el encabezado (apartado0)
+        const headerDocRef = doc(db, "textoBG", "apartado0");
+        const headerSnap = await getDoc(headerDocRef);
+        if (headerSnap.exists()) {
+          setHeader(headerSnap.data().encabezado || "Recursos Humanos al Día");
+        }
+
+        // Obtener el resto de documentos, excluyendo apartado0
         const querySnapshot = await getDocs(collection(db, "textoBG"));
-        const documents = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const documents = querySnapshot.docs
+          .filter((doc) => doc.id !== "apartado0") // Filtrar apartado0
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
         setData(documents);
       } catch (error) {
         console.error("Error fetching documents:", error);
@@ -56,15 +77,9 @@ const RecursosHumanos = () => {
     <ThemeProvider theme={customTheme}>
       <Box sx={{ padding: 4 }}>
         <Typography variant="h4" align="center" sx={{ fontWeight: 600, marginBottom: 3 }}>
-          Recursos Humanos al Día
+          {header} {/* Encabezado dinámico obtenido desde Firestore */}
         </Typography>
-        <Typography variant="h6" align="center" paragraph>
-          Tu fuente de información y tendencias en RRHH
-        </Typography>
-        <Typography variant="subtitle1" align="center" paragraph sx={{ color: 'text.secondary' }}>
-          Tendencias Emergentes en Recursos Humanos. Mantente actualizado con las últimas innovaciones en el campo de los RRHH.
-        </Typography>
-
+       
         <Grid container spacing={4} justifyContent="center">
           {data.map((item) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
@@ -82,10 +97,16 @@ const RecursosHumanos = () => {
                   <Typography variant="h6" sx={{ fontWeight: 500, marginBottom: 2 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary', marginBottom: 2 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: 'text.secondary',
+                      marginBottom: 2,
+                      whiteSpace: 'pre-wrap', // Esta propiedad respeta los espacios y saltos de línea
+                    }}
+                  >
                     {item.contenido}
                   </Typography>
-              
                 </CardContent>
               </Card>
             </Grid>

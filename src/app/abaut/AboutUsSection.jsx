@@ -1,13 +1,13 @@
 'use client'; // Asegúrate de que esto esté al inicio del archivo
 
 import React, { useEffect, useState } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, doc, getDoc, collection } from 'firebase/firestore';
 import { db } from "@/lib/firebaseConfig"; // Importa la instancia de Firestore ya configurada
-import { Typography, Grid, Card, CardContent, CardMedia, Button, Box, useTheme, useMediaQuery } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Typography, Grid, Card, CardContent, CardMedia, Box, ThemeProvider, createTheme } from "@mui/material";
 
 const Conocenos = () => {
   const [data, setData] = useState([]);
+  const [header, setHeader] = useState("Recursos Humanos"); // Estado para el encabezado
   const [darkMode, setDarkMode] = useState(false);
 
   const theme = createTheme({
@@ -30,19 +30,27 @@ const Conocenos = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "textoSN")); // Obtener todos los documentos de la colección "texto"
-        const documents = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(), // Obtén los datos de cada documento
-        }));
-        setData(documents); // Guarda los documentos en el estado
+        // Obtener el encabezado (apartado0)
+        const headerDocRef = doc(db, "textoSN", "apartado0");
+        const headerSnap = await getDoc(headerDocRef);
+        if (headerSnap.exists()) {
+          setHeader(headerSnap.data().encabezado);
+        }
+
+        // Obtener el resto de documentos, excluyendo apartado0
+        const querySnapshot = await getDocs(collection(db, "textoSN"));
+        const documents = querySnapshot.docs
+          .filter((doc) => doc.id !== "apartado0") // Excluir apartado0
+          .map(doc => ({ id: doc.id, ...doc.data() }));
+
+        setData(documents);
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
     };
 
     fetchData();
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
+  }, []);
 
   if (data.length === 0) {
     return <div>Cargando...</div>; // Mensaje mientras se cargan los datos
@@ -52,10 +60,7 @@ const Conocenos = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ padding: "40px", backgroundColor: "transparent" }}>
         <Typography variant="h3" color="primary" gutterBottom align="center">
-          Recursos Humanos
-        </Typography>
-        <Typography variant="h5" color="textSecondary" paragraph align="center">
-          Expertos en la gestión de talento humano
+          {header} {/* Se reemplaza el texto fijo con el encabezado de Firestore */}
         </Typography>
 
         <Grid container spacing={4} justifyContent="center" sx={{ marginTop: "30px" }}>
@@ -92,24 +97,19 @@ const Conocenos = () => {
                   <Typography variant="h6" gutterBottom color="text.primary">
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    paragraph
+                    style={{ whiteSpace: "pre-line" }} // Aquí se respetan los espacios y saltos de línea
+                  >
                     {item.contenido}
                   </Typography>
                 </CardContent>
-                
               </Card>
             </Grid>
           ))}
         </Grid>
-
-        <Box sx={{ marginTop: "60px", textAlign: "center" }}>
-          <Typography variant="h5" color="primary" gutterBottom>
-            Transformando el talento humano
-          </Typography>
-          <Typography variant="body1" color="textSecondary" paragraph>
-            Un equipo comprometido con la excelencia en cada proyecto.
-          </Typography>
-        </Box>
       </Box>
     </ThemeProvider>
   );
