@@ -89,7 +89,6 @@ const ChatCard = () => {
   <br></br>
   <DisplayImagesP/>
   <br></br>
-
   {/* Botón agregar publicidad */}
   <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-white"></h1>
   <br></br>

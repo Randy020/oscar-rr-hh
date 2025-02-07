@@ -51,6 +51,15 @@ const ECommerce: React.FC = () => {
     <>
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-9 2xl:gap-7.5">
         <div className="col-span-12 xl:col-span-8">
+        <div className="flex flex-col items-center justify-center">
+            <Image
+              src="/img/7cf5e7d6-4af5-403a-8154-a983446f464d-removebg-preview.png"
+              alt="Descripción del GIF"
+              width={650}
+              height={150}
+              priority
+            />
+          </div>
           <div className="flex flex-col items-center justify-center">
             <Image
               src="/img/hacia bajo.gif"
