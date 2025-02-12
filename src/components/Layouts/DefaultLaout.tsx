@@ -40,7 +40,7 @@ export default function DefaultLayout({
             </div>
           </main>
           <ActionButtons/>
-          <Footer/>
+           
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
       

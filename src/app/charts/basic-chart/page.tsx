@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 export const metadata: Metadata = {
   title:
-    "empleo oscar fung consulting",
+    "vende lo que quieras",
   description: "Esta es una aplicacion de Contratacion y aplicacion para puestos",
 };
 

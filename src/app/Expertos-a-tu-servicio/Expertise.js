@@ -12,7 +12,7 @@ export default function Team() {
     {
       title: 'Compromiso y dedicación',
       description:
-        'En empleo oscar fung consulting, cada profesional está comprometido con el éxito de nuestros clientes. Trabajamos en estrecha colaboración para entender las necesidades específicas de cada empresa y ofrecer las mejores soluciones en gestión de talento.',
+        'En vende lo que quieras, cada profesional está comprometido con el éxito de nuestros clientes. Trabajamos en estrecha colaboración para entender las necesidades específicas de cada empresa y ofrecer las mejores soluciones en gestión de talento.',
       image:
         'https://user-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_clip,w_960,h_720,f_auto,q_auto/unsplashcom/photo-1672132855420-6bd49fc4374f',
     },
