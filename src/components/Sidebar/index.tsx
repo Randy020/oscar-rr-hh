@@ -97,15 +97,15 @@ const menuGroups = [
         children: [ 
           {
             label: "Gmail",
-            route: "https://mail.google.com/mail/?view=cm&fs=1&to=example@gmail.com&su=Asunto%20del%20correo&body=Mensaje%20inicial",
+            route: "https://mail.google.com/mail/?view=cm&fs=1&to=oficina@empleooscarfungconsulting.com&su=Asunto%20del%20correo&body=Mensaje%20inicial",
           },
           {
             label: "Whatsapp",
-            route: "https://wa.me/1234567890?text=Hola,%20quisiera%20más%20información",
+            route: "https://chat.whatsapp.com/BaQ6qYZN0cv2Tw5TyPR4Ip",
           },
           {
             label: "Telefono",
-            route: "tel:+1234567890",
+            route: "tel:+18493759917",
           },
         ],
       },
